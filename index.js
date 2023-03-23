@@ -1,4 +1,6 @@
 require('dotenv').config()
+const express = require('express')
+const morgan = require('morgan')
 
 const {
   checkConnection,
@@ -13,4 +15,20 @@ async function startDB() {
   await syncModels()
 }
 
-startDB()
+function startExpress() {
+  const app = express()
+            .use(morgan('dev'))
+
+            .use('/api', require('./api/routes/index'))
+
+            .listen(process.env.PORT, () => {
+              console.log(`Listenting on port ${process.env.PORT}`)
+            })
+}
+
+async function start() {
+  await startDB()
+  startExpress()
+}
+
+start()

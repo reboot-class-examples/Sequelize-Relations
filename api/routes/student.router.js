@@ -1,12 +1,11 @@
 const router = require('express').Router()
 
 const {
+  getAllStudents,
   createStudent
 } = require('../controllers/student.controller')
 
-router.get('/', (req, res) => {
-  res.send('All students')
-})
+router.get('/', getAllStudents)
 
 router.get('/:id', (req, res) => {
   res.send(`Student number ${req.params.id} obtained`)

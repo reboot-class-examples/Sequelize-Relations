@@ -2,23 +2,19 @@ const router = require('express').Router()
 
 const {
   getAllStudents,
-  createStudent
+  getStudentById,
+  createStudent,
+  updateStudent,
+  deleteStudent
 } = require('../controllers/student.controller')
 
 router.get('/', getAllStudents)
-
-router.get('/:id', (req, res) => {
-  res.send(`Student number ${req.params.id} obtained`)
-})
+router.get('/:id', getStudentById)
 
 router.post('/', createStudent)
 
-router.put('/:id', (req, res) => {
-  res.send(`Student ${req.params.id} updated`)
-})
+router.put('/:id', updateStudent)
 
-router.delete('/:id', (req, res) => {
-  res.send(`Student ${req.params.id} deleted`)
-})
+router.delete('/:id', deleteStudent)
 
 module.exports = router

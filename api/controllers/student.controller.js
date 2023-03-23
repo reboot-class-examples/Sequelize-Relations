@@ -1,4 +1,5 @@
 const Student = require('../models/student.model')
+const Contact = require('../models/contact.model')
 
 async function getAllStudents (req, res) {
   try {
@@ -11,8 +12,13 @@ async function getAllStudents (req, res) {
 
 async function getStudentById (req, res) {
   try {
-    const student = await Student.findByPk(req.params.id)
-    res.status(200).json(student)
+    const student = await Student.findByPk(req.params.id, {
+   //   include: Contact
+    })
+
+    const contact = await student.getContact()
+
+    res.status(200).json({studentInfo: student, contactInfo: contact})
   } catch (error) {
     return res.status(500).json(error)
   }
@@ -59,10 +65,37 @@ async function deleteStudent(req, res) {
   }
 }
 
+async function addContactInfo(req, res) {
+  try {
+    const student = await Student.findByPk(req.params.studentId)
+    const contact = await Contact.findByPk(req.body.contactId)
+
+    await student.setContact(contact)
+
+    return res.send('Contact Info added')
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}
+
+async function createAndSetContact(req, res) {
+  try {
+    const student = await Student.findByPk(req.params.studentId)
+
+    await student.createContact({ address: 'Narnia', number: 666 })
+
+    return res.send('Contact Created and Added')
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}
+
 module.exports = {
   getAllStudents,
   getStudentById,
   createStudent,
   updateStudent,
-  deleteStudent
+  deleteStudent,
+  addContactInfo,
+  createAndSetContact
 }

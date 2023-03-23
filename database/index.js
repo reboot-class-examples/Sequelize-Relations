@@ -16,7 +16,17 @@ async function checkConnection() {
   }
 }
 
+async function syncModels() {
+  try {
+    await sequelize.sync({force: true})
+    console.log('Models Synced! :D')
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   sequelize,
-  checkConnection
+  checkConnection,
+  syncModels
 }

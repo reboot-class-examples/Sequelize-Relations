@@ -17,6 +17,7 @@ async function startDB() {
 
 function startExpress() {
   const app = express()
+            .use(express.json())
             .use(morgan('dev'))
 
             .use('/api', require('./api/routes/index'))

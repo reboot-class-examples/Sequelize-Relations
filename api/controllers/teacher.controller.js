@@ -60,14 +60,6 @@ async function deleteTeacher(req, res) {
   }
 }
 
-async function addStudents(req, res) {
-  try {
-    
-  } catch (error) {
-    return res.status(500).json(error)
-  }
-}
-
 module.exports = {
   getAllTeachers,
   getTeacherById,

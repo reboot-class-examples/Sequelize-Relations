@@ -82,7 +82,7 @@ async function createAndSetContact(req, res) {
   try {
     const student = await Student.findByPk(req.params.studentId)
 
-    await student.createContact({ address: 'Narnia', number: 666 })
+    await student.createContact(req.body)
 
     return res.send('Contact Created and Added')
   } catch (error) {

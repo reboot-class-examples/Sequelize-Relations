@@ -1,4 +1,5 @@
 const Teacher = require('../models/teacher.model')
+const Student = require('../models/student.model')
 
 async function getAllTeachers (req, res) {
   try {
@@ -54,6 +55,14 @@ async function deleteTeacher(req, res) {
       return res.status(404).send('teacher not found :c')
     }
     return res.status(200).send('teacher deleted >:D')
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}
+
+async function addStudents(req, res) {
+  try {
+    
   } catch (error) {
     return res.status(500).json(error)
   }
